@@ -2,6 +2,8 @@ import numpy as np
 import random
 from scipy.optimize import minimize
 import time
+from scipy import spatial as spt
+
 """
 Python Sparse Variational Gaussian Process module.
 This code is supposed to accompany the tutorial 'A Tutorial on
@@ -105,27 +107,15 @@ def NegLowerBound(Theta, a):
 
 
 def FindSquareDistances(X, Xm=None):
-    ''' Finding the squared distances between sets of points
-        (probably needs tidying up at some point)
+    ''' Finding the squared distances between sets of points.
+        Note that this uses 'spatial' from scipy.
+
     '''
 
-    if np.size(X[0]) == 1:      # For univariate inputs...
-        if Xm is None:
-            X_sq = np.square(X)
-            return -2*np.dot(X, X.T) + X_sq + X_sq.T
-        else:
-            X_sq = X**2
-            Xm_sq = Xm**2
-            return -2*np.dot(X, Xm.T) + X_sq + Xm_sq.T
-    else:                       # For multivariate inputs...
-        if Xm is None:
-            X_sq = np.sum(X**2, 1)
-            return -2.*np.dot(X, X.T) + (X_sq[:, None] + X_sq[None, :])
-        else:
-            X_sq = np.sum(X**2, 1)
-            Xm_sq = np.sum(Xm**2, 1)
-            return -2.*np.dot(X, Xm.T) + (X_sq[:, None] + Xm_sq[None, :])
-        pass
+    if Xm is not None:
+        return spt.distance.cdist(X, Xm, metric='sqeuclidean')
+    else:
+        return spt.distance.cdist(X, X, metric='sqeuclidean')
 
 
 def Predict(X, xStar, L, Sigma, Y, K, C, InvC, N):
