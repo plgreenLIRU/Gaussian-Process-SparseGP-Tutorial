@@ -1,3 +1,10 @@
+@book{bishop2006pattern,
+  title={Pattern recognition and machine learning},
+  author={Bishop, Christopher M},
+  year={2006},
+  publisher={springer}
+}
+
 @article{Wilson2015,
 abstract = {We introduce a framework and early results for massively scalable Gaussian processes (MSGP), significantly extending the KISS-GP approach of Wilson and Nickisch (2015). The MSGP framework enables the use of Gaussian processes (GPs) on billions of datapoints, without requiring distributed inference, or severe assumptions. In particular, MSGP reduces the standard {\$}O(n{\^{}}3){\$} complexity of GP learning and inference to {\$}O(n){\$}, and the standard {\$}O(n{\^{}}2){\$} complexity per test point prediction to {\$}O(1){\$}. MSGP involves 1) decomposing covariance matrices as Kronecker products of Toeplitz matrices approximated by circulant matrices. This multi-level circulant approximation allows one to unify the orthogonal computational benefits of fast Kronecker and Toeplitz approaches, and is significantly faster than either approach in isolation; 2) local kernel interpolation and inducing points to allow for arbitrarily located data inputs, and {\$}O(1){\$} test time predictions; 3) exploiting block-Toeplitz Toeplitz-block structure (BTTB), which enables fast inference and learning when multidimensional Kronecker structure is not present; and 4) projections of the input space to flexibly model correlated inputs and high dimensional data. The ability to handle many ({\$}m \backslashapprox n{\$}) inducing points allows for near-exact accuracy and large scale kernel learning.},
 annote = {Massively Scalable Gaussian Processes (MMSGP). Builds heavily on KISS-GP.

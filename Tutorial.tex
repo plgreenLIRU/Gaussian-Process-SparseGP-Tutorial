@@ -38,6 +38,10 @@ United Kingdom\\
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgments}
+Thank you to Ryan Jackson (University of Liverpool, UK) and Kaikai Zhao (Indiana University, Bloomington, USA) for their feedback!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 This document is supposed to provide a tutorial-style introduction to Sparse Variational Gaussian Processes which are typically able to analyse larger data sets than standard Gaussian Processes. As with our other tutorials, the current document is accompanied by some example Python code. The code is heavily commented and is designed to help those new to the topic. It is recommended that this tutorial should only be studied once a basic understanding of standard Gaussian Processes has been established. We offer such a tutorial here: \url{https://github.com/plgreenLIRU/Gaussian-Process-regression-tutorial}. \\
 
@@ -293,9 +297,10 @@ then, using Jensen's inequality, we can now calculate a lower bound on $L$:
 Note that, to maximise $L_{lb}$, we don't actually have to find the variational distribution $\phi(\f_m)$ (a nice trick!). To evaluate the lower bound:
 
 \begin{equation}
-	L_{lb} = \log \underbrace{\left[ \int \mathcal{N}(\y;\E[\f|\f_m],\boldsymbol{I}_N \sigma^2) d\f_m \right]}_{I_2} -\frac{1}{2\sigma^2} \Tr\left( \Cov[\f|\f_m] \right)
+	L_{lb} = \log \underbrace{\left[ \int \mathcal{N}(\y;\E[\f|\f_m],\boldsymbol{I}_N \sigma^2) p(\f_m) d\f_m \right]}_{I_2} -\frac{1}{2\sigma^2} \Tr\left( \Cov[\f|\f_m] \right)
+	\label{eq:kalman_integral}
 \end{equation}
-The integral $I_2$ can be evaluated using standard expressions for Gaussian distributions such that, finally, we have our objective function:
+The integral $I_2$ can be evaluated using standard expressions for Gaussian distributions (see Appendix \ref{appendix_integral}) such that, finally, we have our objective function:
 
 \begin{equation}
 	L_{lb} = \log \left[ \mathcal{N}(\y; \boldsymbol{0}, \boldsymbol{I}_n\sigma^2 + \boldsymbol{K}_{nm}\boldsymbol{K}_{mm}^{-1}\boldsymbol{K}_{mn}) \right] -\frac{1}{2\sigma^2} \Tr\left(  \Cov[\f|\f_m] \right)
@@ -312,46 +317,39 @@ It is worth noting that, while these datasets are quite large, \cite{Deisenroth2
 Finally, Sparse GP code is available for free through the University of Sheffield's Python module GPy. Other interesting variants of GPs for large data sets can also be found in \cite{Wilson2015}\cite{Wilson2015a}. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Code Speed-up}
-%Our code certainly isn't optimised, but it seems like the construction of the kernel matrices provides one of the greatest opportunities for speed-up. Many GP kernels are a function of the squared distance between two input points ($\x_i$ and $\x_j$, for example). Here we describe a computationally efficient way of finding these squared distances (and therefore finding $\boldsymbol{K}_{mm}$, $\boldsymbol{K}_{nm}$, $\boldsymbol{K}_{mn}$ etc.) \\
+\newpage
+\appendix
+\section{Evaluating equation (\ref{eq:kalman_integral})}\label{appendix_integral}
+Generally speaking, for the situation where
 
-%First, we look at the case where we have univariate inputs. We define the following row vectors:
+\begin{equation}
+	p(\x_a) = \mathcal{N}(\x_a; \boldsymbol{\mu}, \boldsymbol{A}^{-1}), \qquad p(\x_b | \x_a) = \mathcal{N}(\x_b; \boldsymbol{H}\x_a + \boldsymbol{b}, \boldsymbol{L}^{-1})
+\end{equation}
+it can be shown that
 
-%\begin{equation}
-%	\X = (x_1,...,x_N), \qquad \X_m = (x_{m1},...,x_{mM})
-%\end{equation}
-%To efficiently calculate the matrix of squared distances needed to form $\boldsymbol{K}_{nm}$ (for example), we create the matrix $\tilde{\X}$ as well as the vectors $\X^{\text{\text{sq}}}$ and $\X_m^{\text{sq}}$ where
+\begin{equation}
+	p(\x_b) = \int p(\x_b | \x_a) p(\x_a) d\x_a = \mathcal{N}(\x_b; \boldsymbol{H}\boldsymbol{\mu} + \boldsymbol{b}, \boldsymbol{L}^{-1}\boldsymbol{HA}^{-1}\boldsymbol{H}^T)
+\end{equation}
+This is proved, for example, in Bishop's book \cite{bishop2006pattern} and also forms part of the derivation of the well-known Kalman filter equations. Applying this generalised result to the integral in equation (\ref{eq:kalman_integral}), we find the following:
 
-%\begin{equation}
-%	\X^{\text{sq}} = (x_1^2,...,x_N^2), \qquad \X_m^{\text{sq}} = (x_{m1}^2,...,x_{mM}^2), \qquad   \tilde{\X}(i,j) = \X^{\text{sq}}(i) + \X_m^{\text{sq}}(j)
-%\end{equation}
-%It is then easy to show that the matrix of squared distances needed to form $\boldsymbol{K}_{nm}$ is given by
+\begin{equation}
+	\int \mathcal{N} \left( \y; \boldsymbol{K}_{nm} \boldsymbol{K}_{mm}^{-1} \boldsymbol{f}_m, \boldsymbol{I}_n \sigma^2 \right)
+	\mathcal{N}\left( \boldsymbol{f}_m; \boldsymbol{0}, \boldsymbol{K}_{mm} \right) d \boldsymbol{f}_m
+\end{equation}
 
-%\begin{equation}
-%	\boldsymbol{D}^{\text{sq}} = -2\X^T \X_m + \tilde{\X}
-%\end{equation}
-%(as $\boldsymbol{D}^{\text{sq}}(i,j) = -2x_i x_{mj} + x_i^2 + x_{mj}^2 = (x_i - x_j)^2$). \\
+\begin{equation}
+	= \mathcal{N} \left( \y; \boldsymbol{0}, \boldsymbol{I}_n \sigma^2 + \boldsymbol{K}_{nm}\boldsymbol{K}_{mm}^{-1}\boldsymbol{K}_{mm} \boldsymbol{K}_{mm}^{-T} \boldsymbol{K}_{mn} \right)
+\end{equation}
 
-%For the case where we have multivariate inputs, we define
+\begin{equation}
+	= \mathcal{N} \left( \y; \boldsymbol{0}, \boldsymbol{I}_n \sigma^2 + \boldsymbol{K}_{nm} \boldsymbol{K}_{mm}^{-1} \boldsymbol{K}_{mn} \right)
+\end{equation}
 
-%\begin{equation}
-%	\X = [\x_1,...,\x_N], \qquad \X_m = [\x_{m1},...,\x_{mM}]
-%\end{equation}
 
-%\begin{equation}
-%	\X^{\text{sq}} = (||\x_1||^2, ..., ||\x_N||^2), \qquad \X_m^{\text{sq}} =  (||\x_{m1}||^2, ..., ||\x_{mM}||^2)
-%\end{equation}
-%and $\tilde{\X}$ where
 
-%\begin{equation}
-%	\tilde{\X}(i,j) = \X^{\text{sq}}(i) + \X_m^{\text{sq}}(j)
-%\end{equation}
-%As with the univariate case, our matrix of squared distances will then be
 
-%\begin{equation}
-%	\boldsymbol{D}^{\text{sq}} = -2\X^T\X_m + \tilde{\X}
-%\end{equation}
-%(as $\boldsymbol{D}^{\text{sq}}(i,j) = -2(\x_i^T\x_{mj}) + ||\x_i||^2 + ||\x_{mj}||^2 = (\x_i - \x_{mj})^T(\x_i - \x_{mj})$).
+
+
 
 
 
