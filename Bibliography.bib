@@ -1,0 +1,235 @@
+@article{Wilson2015,
+abstract = {We introduce a framework and early results for massively scalable Gaussian processes (MSGP), significantly extending the KISS-GP approach of Wilson and Nickisch (2015). The MSGP framework enables the use of Gaussian processes (GPs) on billions of datapoints, without requiring distributed inference, or severe assumptions. In particular, MSGP reduces the standard {\$}O(n{\^{}}3){\$} complexity of GP learning and inference to {\$}O(n){\$}, and the standard {\$}O(n{\^{}}2){\$} complexity per test point prediction to {\$}O(1){\$}. MSGP involves 1) decomposing covariance matrices as Kronecker products of Toeplitz matrices approximated by circulant matrices. This multi-level circulant approximation allows one to unify the orthogonal computational benefits of fast Kronecker and Toeplitz approaches, and is significantly faster than either approach in isolation; 2) local kernel interpolation and inducing points to allow for arbitrarily located data inputs, and {\$}O(1){\$} test time predictions; 3) exploiting block-Toeplitz Toeplitz-block structure (BTTB), which enables fast inference and learning when multidimensional Kronecker structure is not present; and 4) projections of the input space to flexibly model correlated inputs and high dimensional data. The ability to handle many ({\$}m \backslashapprox n{\$}) inducing points allows for near-exact accuracy and large scale kernel learning.},
+annote = {Massively Scalable Gaussian Processes (MMSGP). Builds heavily on KISS-GP.
+
+Allows GPs to be applied on 'billions of data points'.
+
+Nice quote 'provide a mechanism for scientific discovery'.
+
+N{\^{}}3 complexity reduced to N.
+
+Standard Toeplitz applicable to about 10,000 points. 
+
+Very thorough - compared with a large number of alternative algorithms.},
+archivePrefix = {arXiv},
+arxivId = {1511.01870},
+author = {Wilson, Andrew Gordon and Dann, Christoph and Nickisch, Hannes},
+doi = {10.7153/mia-18-96},
+eprint = {1511.01870},
+issn = {13314343},
+pages = {1--25},
+title = {{Thoughts on Massively Scalable Gaussian Processes}},
+url = {http://arxiv.org/abs/1511.01870},
+year = {2015}
+}
+@article{Wilson2015a,
+abstract = {We introduce a new structured kernel interpolation (SKI) framework, which generalises and unifies inducing point methods for scalable Gaussian processes (GPs). SKI methods produce kernel approximations for fast computations through kernel interpolation. The SKI framework clarifies how the quality of an inducing point approach depends on the number of inducing (aka interpolation) points, interpolation strategy, and GP covariance kernel. SKI also provides a mechanism to create new scalable kernel methods, through choosing different kernel interpolation strategies. Using SKI, with local cubic kernel interpolation, we introduce KISS-GP, which is 1) more scalable than inducing point alternatives, 2) naturally enables Kronecker and Toeplitz algebra for substantial additional gains in scalability, without requiring any grid data, and 3) can be used for fast and expressive kernel learning. KISS-GP costs O(n) time and storage for GP inference. We evaluate KISS-GP for kernel matrix approximation, kernel learning, and natural sound modelling.},
+annote = {Discuss how Kronecker and Toeplitz methods are really efficient but require that your input data is evenly spaced over a grid. 
+
+Tempting to place inducing points in a grid but it doesn't reduce the m{\^{}}2n term, which is usually the most important. 
+
+Mentions 'expressive kernel learning'. This is about learning the right kernel, not learning FROM the kernel. 
+
+Essentially I think they get around the issue simply using interpolation (hence, 'kernel interpolation')...
+
+They call it 'KISS-GP'
+
+Example with about 60,000 points.},
+archivePrefix = {arXiv},
+arxivId = {1503.01057},
+author = {Wilson, Andrew Gordon and Nickisch, Hannes},
+doi = {10.1007/978-0-8176-8172-2_11},
+eprint = {1503.01057},
+isbn = {9781510810587},
+title = {{Kernel Interpolation for Scalable Structured Gaussian Processes (KISS-GP)}},
+url = {http://arxiv.org/abs/1503.01057},
+volume = {37},
+year = {2015}
+}
+
+
+
+
+
+
+@book{mackay2003information,
+  title={Information theory, inference and learning algorithms},
+  author={MacKay, David JC and Mac Kay, David JC},
+  year={2003},
+  publisher={Cambridge university press}
+}
+
+@book{Bishop2013,
+abstract = {The dramatic growth in practical applications for machine learning over the last ten years has been accompanied by many important developments in the underlying algorithms and techniques. For example, Bayesian methods have grown from a specialist niche to become mainstream, while graphical models have emerged as a general framework for describing and applying probabilistic techniques. The practical applicability of Bayesian methods has been greatly enhanced by the development of a range of approximate inference algorithms such as variational Bayes and expectation propagation, while new models based on kernels have had a significant impact on both algorithms and applications. This completely new textbook reflects these recent developments while providing a comprehensive introduction to the fields of pattern recognition and machine learning. It is aimed at advanced undergraduates or first-year PhD students, as well as researchers and practitioners. No previous knowledge of pattern recognition or machine learning concepts is assumed. Familiarity with multivariate calculus and basic linear algebra is required, and some experience in the use of probabilities would be helpful though not essential as the book includes a self-contained introduction to basic probability theory. The book is suitable for courses on machine learning, statistics, computer science, signal processing, computer vision, data mining, and bioinformatics. Extensive support is provided for course instructors, including more than 400 exercises, graded according to difficulty. Example solutions for a subset of the exercises are available from the book web site, while solutions for the remainder can be obtained by instructors from the publisher. The book is supported by a great deal of additional material, and the reader is encouraged to visit the book web site for the latest information. Christopher M. Bishop is Deputy Director of Microsoft Research Cambridge, and holds a Chair in Computer Science at the University of Edinburgh. He is a Fellow of Darwin College Cambridge, a Fellow of the Royal Academy of Engineering, and a Fellow of the Royal Society of Edinburgh. His previous textbook "Neural Networks for Pattern Recognition" has been widely adopted.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1011.1669v3},
+author = {Bishop, Christopher M},
+booktitle = {Journal of Chemical Information and Modeling},
+doi = {10.1117/1.2819119},
+eprint = {arXiv:1011.1669v3},
+file = {:C$\backslash$:/Users/Pete/Documents/Bishop - Pattern Recognition And Machine Learning - Springer  2006.pdf:pdf},
+isbn = {978-0-387-31073-2},
+issn = {1098-6596},
+number = {9},
+pages = {1689--1699},
+pmid = {25246403},
+title = {{Pattern Recognition and Machine Learning}},
+volume = {53},
+year = {2013}
+}
+
+@article{Chai2012,
+abstract = {Gaussian process prior with an appropriate likelihood function is a flexible non-parametric model for a variety of learning tasks. One important and standard task is multi-class classification, which is the categorization of an item into one of several fixed classes. A usual likelihood function for this is the multinomial logistic likelihood function. However, exact inference with this model has proved to be difficult because high-dimensional integrations are required. In this paper, we propose a variational approximation to this model, and we describe the optimization of the variational parameters. Experiments have shown our approximation to be tight. In addition, we provide data-independent bounds on the marginal likelihood of the model, one of which is shown to be much tighter than the existing variational mean-field bound in the experiments. We also derive a proper lower bound on the predictive likelihood that involves the Kullback-Leibler divergence between the approximating and the true posterior. We combine our approach with a recently proposed sparse approximation to give a variational sparse approximation to the Gaussian process multi-class model. We also derive criteria which can be used to select the inducing set, and we show the effectiveness of these criteria over random selection in an experiment.},
+annote = {Addresses classification specifically. 
+
+Looks at non-conjugate likelihoods using a variational sparse GP.},
+author = {Chai, Kian Ming A.},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2012 Chai. Variational Multinomial Logit Gaussian Process.pdf:pdf},
+isbn = {1532-4435},
+issn = {1532-4435},
+journal = {J. Mach. Learn. Res.},
+keywords = {gaussian process,multinomial logistic,probabilistic classification,proximation,sparse approximation,variational ap-},
+pages = {1745--1808},
+title = {{Variational Multinomial Logit Gaussian Process}},
+url = {http://dl.acm.org/citation.cfm?id=2343676.2343700{\%}5Cnhttp://dl.acm.org/ft{\_}gateway.cfm?id=2343700{\&}type=pdf},
+volume = {98888},
+year = {2012}
+}
+@article{Damianou2012,
+abstract = {In this paper we introduce deep Gaussian process (GP) models. Deep GPs are a deep belief network based on Gaussian process mappings. The data is modeled as the output of a multivariate GP. The inputs to that Gaussian process are then governed by another GP. A single layer model is equivalent to a standard GP or the GP latent variable model (GP-LVM). We perform inference in the model by approximate variational marginalization. This results in a strict lower bound on the marginal likelihood of the model which we use for model selection (number of layers and nodes per layer). Deep belief networks are typically applied to relatively large data sets using stochastic gradient descent for optimization. Our fully Bayesian treatment allows for the application of deep models even when data is scarce. Model selection by our variational bound shows that a five layer hierarchy is justified even when modelling a digit data set containing only 150 examples.},
+annote = {A deep belief network based on GP mappings. 
+
+Can do large data sets (like other deep methods). 
+
+Can also do small data sets (unlike other deep methods). 
+
+Variational approach is central to approach. 
+
+Also builds on the GP-LVM. 
+
+ARD is also central to the approach. 
+
+Demonstrated on a dataset with more dimensions than data (!)},
+archivePrefix = {arXiv},
+arxivId = {1211.0358},
+author = {Damianou, Andreas C. and Lawrence, Neil D.},
+doi = {10.1002/nme.1296},
+eprint = {1211.0358},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2013 Damianou and Lawrence. Deep Gaussian Processes..pdf:pdf},
+isbn = {026218253X},
+issn = {15337928},
+journal = {Artificial Intelligence and Statistics},
+pmid = {88045},
+title = {{Deep Gaussian Processes}},
+url = {http://arxiv.org/abs/1211.0358},
+volume = {31},
+year = {2012}
+}
+@article{Deisenroth2015,
+abstract = {To scale Gaussian processes (GPs) to large data sets we introduce the robust Bayesian Committee Machine (rBCM), a practical and scalable product-of-experts model for large-scale distributed GP regression. Unlike state-of-the-art sparse GP approximations, the rBCM is conceptually simple and does not rely on inducing or variational parameters. The key idea is to recursively distribute computations to independent computational units and, subsequently, recombine them to form an overall result. Efficient closed-form inference allows for straightforward parallelisation and distributed computations with a small memory footprint. The rBCM is independent of the computational graph and can be used on heterogeneous computing infrastructures, ranging from laptops to clusters. With sufficient computing resources our distributed GP model can handle arbitrarily large data sets.},
+annote = {•The robust Bayesian Committee Machine (rBCM). Is an extension of a product-of-experts model 
+•‘{\ldots}even with sparse approximations it is inconceivable to apply GPs to training set sizes of order 10{\^{}}7.' 
+•Gradient based optimisation, not MCMC. 
+•1 million data points – trained on laptop in ½ hour. 
+•Small number of parameters compared with Sparse GPs. 
+•Can chose graph that best suits an architecture.},
+archivePrefix = {arXiv},
+arxivId = {1502.02843},
+author = {Deisenroth, Marc Peter and Ng, Jun Wei},
+doi = {10.1016/j.physa.2015.02.029},
+eprint = {1502.02843},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2015 Desienroth and Ng. Distributed Gaussian Processes..pdf:pdf},
+isbn = {9781510810587},
+journal = {International Conference on Machine Learning},
+title = {{Distributed Gaussian Processes}},
+url = {http://arxiv.org/abs/1502.02843},
+volume = {37},
+year = {2015}
+}
+@article{Gal2014,
+annote = {•Variational sparse GPs applied in a Map-Reduce setting. 
+•Applied to ‘flight data' with 2 million records (used to predict flight delays). 
+•States that GPs are robust to overfitting (are they?) 
+•Implemented on open-source MapReduce software in Python (ref included).},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1402.1389v2},
+author = {Gal, Yarin and van der Wilk, Mark and Rasmussen, Carl},
+eprint = {arXiv:1402.1389v2},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2014 Gal et al Distributed Variational Inference in Sparse Gaussian Process Regression and Latent Varaible Models.pdf:pdf},
+journal = {Proc. Neural Information Processing Systems (NIPS)},
+pages = {1--9},
+title = {{Distributed Variational Inference in Sparse Gaussian Process Regression and Latent Variable Models}},
+year = {2014}
+}
+@article{Hensman2013,
+abstract = {We introduce stochastic variational inference for Gaussian process models. This enables the application of Gaussian process (GP) models to data sets containing millions of data points. We show how GPs can be vari- ationally decomposed to depend on a set of globally relevant inducing variables which factorize the model in the necessary manner to perform variational inference. Our ap- proach is readily extended to models with non-Gaussian likelihoods and latent variable models based around Gaussian processes. We demonstrate the approach on a simple toy problem and two real world data sets.},
+annote = {Produced a variant of variational sparse GPs that is suitable for stockastic variational inference. Applied to datasets with around 700,000 points.},
+archivePrefix = {arXiv},
+arxivId = {1309.6835},
+author = {Hensman, James and Fusi, N and Lawrence, Neil D.},
+doi = {10.1162/089976699300016331},
+eprint = {1309.6835},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2013 Hensman Fusi and Lawrence. Gaussian Processes for Big Data.pdf:pdf},
+isbn = {978-1-4503-1285-1},
+issn = {0899-7667},
+journal = {Uncertainty in Artificial Intelligence},
+pages = {282--290},
+pmid = {80990000001},
+title = {{Gaussian Processes for Big Data}},
+url = {http://auai.org/uai2013/prints/papers/244.pdf},
+year = {2013}
+}
+@article{Hensman2014,
+abstract = {Deep Gaussian processes provide a flexible approach to probabilistic modelling of data using either supervised or unsupervised learning. For tractable inference approximations to the marginal likelihood of the model must be made. The original approach to approximate inference in these models used variational compression to allow for approximate variational marginalization of the hidden variables leading to a lower bound on the marginal likelihood of the model [Damianou and Lawrence, 2013]. In this paper we extend this idea with a nested variational compression. The resulting lower bound on the likelihood can be easily parallelized or adapted for stochastic variational inference.},
+annote = {•Deep Gaussian processes (again). 
+•A ‘nested' approach to variational inference makes it more suitable for parallel computer architectures. 
+•Notes the danger of overfitting when using deep methods. 
+•Deep GPs can also do unsupervised learning. 
+•Demonstrated on an example that is difficult for GPs.},
+archivePrefix = {arXiv},
+arxivId = {1412.1370},
+author = {Hensman, James and Lawrence, Neil D.},
+eprint = {1412.1370},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2014 Hensman and Lawrence. Nested variational compression in Deep Gaussian Processes.pdf:pdf},
+pages = {1--21},
+title = {{Nested Variational Compression in Deep Gaussian Processes}},
+url = {http://arxiv.org/abs/1412.1370},
+year = {2014}
+}
+@article{Lazaro-Gredilla2011,
+abstract = {Standard Gaussian processes (GPs) model observations' noise as constant throughout input space. This is often a too restrictive assumption, but one that is needed for GP inference to be tractable. In this work we present a non-standard variational approximation that allows accurate inference in heteroscedastic GPs (i.e., under input-dependent noise conditions). Computational cost is roughly twice that of the standard GP, and also scales as O(n{\^{}}3). Accuracy is verified by comparing with the golden standard MCMC and its effectiveness is illustrated on several synthetic and real datasets of diverse characteristics. An application to volatility forecasting is also considered.},
+annote = {As it says... a variational GP for heteroscedastic problems.},
+author = {Lazaro-Gredilla, Miguel and Titsias, Michalis},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2011 Gredilla and Titsias. Veriational heteroscedastic Gaussian Process regression.pdf:pdf},
+isbn = {978-1-4503-0619-5},
+journal = {Proceedings of International Conference on Machine Learning (ICML 2011), Bellevue, Washington, USA},
+keywords = {Learning/Statistics {\&} Optimisation},
+pages = {8},
+title = {{Variational Heteroscedastic Gaussian Process Regression}},
+url = {http://eprints.pascal-network.org/archive/00009089/},
+year = {2011}
+}
+@article{Titsias2009,
+abstract = {Sparse Gaussian process methods that use inducing variables require the selection of the inducing inputs and the kernel hyperparameters. We introduce a variational formulation for sparse approximations that jointly infers the inducing inputs and the kernel hyperparameters by maximizing a lower bound of the true log marginal likelihood. The key property of this formulation is that the inducing inputs are defined to be variational parameters which are selected by minimizing the Kullback-Leibler divergence between the variational distribution and the exact posterior distribution over the latent function values. We apply this technique to regression and we compare it with other approaches in the literature.},
+annote = {First variational sparse GP publication.},
+author = {Titsias, Michalis},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2009 Titsias(a). Variational learning of inducing variables in sparse Gaussian Processes.pdf:pdf},
+issn = {15324435},
+journal = {Artificial Intelligence and Statistics},
+keywords = {Learning/Statistics {\&} Optimisation,Theory {\&} Algorithms},
+pages = {567--574},
+title = {{Variational Learning of Inducing Variables in Sparse Gaussian Processes}},
+url = {http://eprints.pascal-network.org/archive/00006353/},
+volume = {5},
+year = {2009}
+}
+@article{Titsias2009a,
+abstract = {Sparse Gaussian process methods that use inducing variables require the selection of the inducing inputs and the kernel hyperparameters. We introduce a variational formulation for sparse approxima- tions that jointly infers the inducing inputs and the kernel hyperparameters by maximizing a lower bound of the true log marginal likelihood. The key property of this formulation is that the inducing inputs are defined to be variational parameters which are selected by minimizing the Kullback-Leibler divergence between the variational distribution and the exact posterior distribution over the latent function values. We apply this technique to regression and we compare it with other approaches in the literature.},
+annote = {Variational sparse GP technical report.},
+author = {Titsias, Michalis K},
+file = {:C$\backslash$:/Users/Pete/Google Drive/UKRI{\_}FutureLeadersFellowship/Literature/Done/2009 Titsias(b). Variational model selection for sparse Gaussian Process regression.pdf:pdf},
+number = {2006},
+pages = {1--20},
+title = {{Variational Model Selection for Sparse Gaussian Process Regression}},
+year = {2009}
+}

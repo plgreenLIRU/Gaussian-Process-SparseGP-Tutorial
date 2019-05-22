@@ -1,0 +1,5 @@
+# Ignore all files in directory __pycache__/
+__pycache__/
+
+# Ignore .synctex.gz files make by LaTeX
+*.synctex.gz
