@@ -103,7 +103,7 @@ def NegLowerBound(Theta, a):
     LogDetC = Sign*LogDetC
     NLB = -(-0.5*LogDetC - 0.5*np.dot(Y.T, np.dot(np.linalg.inv(C), Y))
             - 1/(2*Sigma**2)*np.sum(B))
-    return NLB
+    return NLB.ravel()
 
 
 def FindSquareDistances(X, Xm=None):

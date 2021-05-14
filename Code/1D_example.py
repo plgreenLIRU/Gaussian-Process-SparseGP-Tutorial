@@ -11,7 +11,7 @@ University of Liverpool
 
 
 # Make some 1D training data
-N = 500                         # 500 training poitns
+N = 500                         # 500 training points
 X = np.linspace(0, 10, N)       # Inputs evenly spaced between 0 and 10
 F = np.sin(X)                   # True function (f = sin(x))
 Y = F + 0.1*np.random.randn(N)  # Observations
